@@ -1,8 +1,8 @@
 package loja_virtual_repository;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class TestaRemocao {
 
@@ -11,9 +11,10 @@ public class TestaRemocao {
 		ConnectionFactory connectionFactory = new ConnectionFactory();
 		Connection connection = connectionFactory.recuperarConexao();
 		
-		Statement stm = connection.createStatement();
+		PreparedStatement stm = connection.prepareStatement("DELETE FROM PRODUTO WHERE ID > ?");
 		
-		stm.execute("DELETE FROM PRODUTO WHERE ID > 2");
+		stm.setInt(1, 2);
+		stm.execute();
 		
 		Integer linhasModificadas = stm.getUpdateCount();
 		
