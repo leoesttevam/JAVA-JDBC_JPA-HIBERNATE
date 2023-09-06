@@ -10,23 +10,25 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "categorias")
-public class Categoria {
+@Table(name = "clientes")
+public class Cliente {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
+	private String CPF;
 	
 	@OneToMany
-	private List<Produto> produtos;
+	private List<Pedido> pedidos;
 	
-	public Categoria() {
-		
+	public Cliente(String nome, String CPF) {
+		this.nome = nome;
+		this.CPF = CPF;
 	}
 	
-	public Categoria(String nome) {
-		this.nome = nome;
+	public Cliente() {
+		
 	}
 
 	public Long getId() {
@@ -41,8 +43,16 @@ public class Categoria {
 		this.nome = nome;
 	}
 
-	public List<Produto> getProdutos() {
-		return produtos;
+	public String getCPF() {
+		return CPF;
+	}
+
+	public void setCPF(String cPF) {
+		CPF = cPF;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
 	}
 	
 }

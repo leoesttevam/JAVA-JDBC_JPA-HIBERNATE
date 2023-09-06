@@ -11,29 +11,28 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "produtos")
-public class Produto {
+@Table(name = "pedidos")
+public class Pedido {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
 	private String descricao;
-	private BigDecimal preco;
-	private LocalDate date = LocalDate.now();
+	private BigDecimal valorTotal;
+	private LocalDate data = LocalDate.now();
 	
 	@ManyToOne
-	private Categoria categoria;
+	private Cliente cliente;
 	
-	public Produto() {
-		
-	}
-	
-	public Produto(String nome, String descricao, BigDecimal preco, Categoria categoria) {
+	public Pedido(String nome, String descricao, BigDecimal valorTotal) {
 		this.nome = nome;
 		this.descricao = descricao;
-		this.preco = preco;
-		this.categoria = categoria;
+		this.valorTotal = valorTotal;
+	}
+	
+	public Pedido() {
+		
 	}
 
 	public Long getId() {
@@ -56,24 +55,16 @@ public class Produto {
 		this.descricao = descricao;
 	}
 
-	public BigDecimal getPreco() {
-		return preco;
+	public BigDecimal getValorTotal() {
+		return valorTotal;
 	}
 
-	public void setPreco(BigDecimal preco) {
-		this.preco = preco;
+	public LocalDate getData() {
+		return data;
 	}
 
-	public LocalDate getDate() {
-		return date;
-	}
-
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+	public Cliente getCliente() {
+		return cliente;
 	}
 	
 }
