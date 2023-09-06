@@ -1,11 +1,13 @@
 package br.com.alura.loja.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,16 +20,20 @@ public class Produto {
 	private String nome;
 	private String descricao;
 	private BigDecimal preco;
+	private LocalDate date = LocalDate.now();
+	
+	@ManyToOne
+	private Categoria categoria;
 	
 	public Produto() {
 		
 	}
 	
-	public Produto(Long id, String nome, String descricao, BigDecimal preco) {
-		this.id = id;
+	public Produto(String nome, String descricao, BigDecimal preco, Categoria categoria) {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
+		this.categoria = categoria;
 	}
 
 	public Long getId() {
@@ -60,6 +66,22 @@ public class Produto {
 
 	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
+	}
+
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 	
 }
