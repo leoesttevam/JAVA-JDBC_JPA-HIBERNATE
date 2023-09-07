@@ -1,5 +1,6 @@
 package br.com.alura.loja.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -20,7 +21,7 @@ public class Cliente {
 	private String CPF;
 	
 	@OneToMany
-	private List<Pedido> pedidos;
+	private List<Pedido> pedidos = new ArrayList<>();
 	
 	public Cliente(String nome, String CPF) {
 		this.nome = nome;
