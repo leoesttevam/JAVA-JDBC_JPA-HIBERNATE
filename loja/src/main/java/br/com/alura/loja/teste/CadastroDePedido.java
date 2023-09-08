@@ -15,6 +15,7 @@ import br.com.alura.loja.model.ItemPedido;
 import br.com.alura.loja.model.Pedido;
 import br.com.alura.loja.model.Produto;
 import br.com.alura.loja.util.JPAUtil;
+import br.com.alura.loja.vo.RelatorioDeVendasVo;
 
 public class CadastroDePedido {
 
@@ -40,12 +41,8 @@ public class CadastroDePedido {
 		BigDecimal totalVendido = pedidoDAO.valorTotalVendido();
 		System.out.println("Valor total " + totalVendido);
 		
-		List<Object[]> objects = pedidoDAO.relatorioDeVendas();
-		for(Object[] obj : objects) {
-			System.out.println(obj[0]);
-			System.out.println(obj[1]);
-			System.out.println(obj[2]);
-		}
+		List<RelatorioDeVendasVo> objects = pedidoDAO.relatorioDeVendas();
+		objects.forEach(System.out::println);
 	}
 	
 	private static void popularBancoDeDados() {
