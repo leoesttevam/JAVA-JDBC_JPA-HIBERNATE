@@ -1,6 +1,7 @@
 package br.com.alura.loja.teste;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -35,6 +36,16 @@ public class CadastroDePedido {
 		pedidoDAO.cadastrar(pedido);
 		
 		em.getTransaction().commit();
+		
+		BigDecimal totalVendido = pedidoDAO.valorTotalVendido();
+		System.out.println("Valor total " + totalVendido);
+		
+		List<Object[]> objects = pedidoDAO.relatorioDeVendas();
+		for(Object[] obj : objects) {
+			System.out.println(obj[0]);
+			System.out.println(obj[1]);
+			System.out.println(obj[2]);
+		}
 	}
 	
 	private static void popularBancoDeDados() {

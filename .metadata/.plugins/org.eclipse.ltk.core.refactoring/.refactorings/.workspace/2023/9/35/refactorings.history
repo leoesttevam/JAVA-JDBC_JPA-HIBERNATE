@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Delete resource &apos;byte-bank-alura-curso_jdbc_inicio&apos;" deleteContents="false" description="Delete resource &apos;byte-bank-alura-curso_jdbc_inicio&apos;" element1="/byte-bank-alura-curso_jdbc_inicio" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1693581393162"/>
-</session>
