@@ -6,6 +6,10 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import br.com.alura.loja.model.Produto;
 
@@ -58,7 +62,7 @@ public class ProdutoDAO {
                         .getSingleResult();
     }
     
-    public List<Produto> buscarPorParametros(String nome, BigDecimal preco, LocalDate dataCadastro) {
+    public List<Produto> buscarPorParametros(String nome, BigDecimal preco, LocalDate date) {
     	String jpql = "SELECT p FROM Produto p WHERE 1=1";
     	
     	if(nome != null && !nome.trim().isEmpty()) {
@@ -67,8 +71,8 @@ public class ProdutoDAO {
     	if(preco != null) {
     		jpql = " AND p.preco = :preco ";
     	}
-    	if(dataCadastro != null) {
-    		jpql = " AND p.dataCadastro = :dataCadastro ";
+    	if(date != null) {
+    		jpql = " AND p.date = :date ";
     	}
     	
     	TypedQuery<Produto> query = em.createQuery(jpql, Produto.class);
@@ -78,11 +82,33 @@ public class ProdutoDAO {
     	if(preco != null) {
     		query.setParameter("preco", preco);
     	}
-    	if(dataCadastro != null) {
-    		query.setParameter("dataCadastro", dataCadastro);    	
+    	if(date != null) {
+    		query.setParameter("date", date);    	
     	}
     	
     	return query.getResultList();
+    }
+    
+    public List<Produto> buscarPorParametrosComCriteria(String nome, BigDecimal preco, LocalDate date) {
+    	
+    	CriteriaBuilder builder = em.getCriteriaBuilder();
+    	CriteriaQuery<Produto> query = builder.createQuery(Produto.class);
+    	Root<Produto> root = query.from(Produto.class);
+    	
+    	Predicate filtros = builder.and();
+    	if(nome != null && !nome.trim().isEmpty()) {
+    		filtros = builder.and(filtros, builder.equal(root.get("nome"), nome));
+    	}
+    	if(preco != null) {
+    		filtros = builder.and(filtros, builder.equal(root.get("preco"), preco));
+    	}
+    	if(date != null) {
+    		filtros = builder.and(filtros, builder.equal(root.get("date"), date));
+    	}
+    	
+    	query.where(filtros);
+    	
+    	return em.createQuery(query).getResultList();
     }
 
 }
