@@ -3,6 +3,7 @@ package br.com.alura.loja.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,15 +18,15 @@ public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String nome;
-	private String CPF;
+	
+	@Embedded
+	private DadosPessoais dadosPessoais;
 	
 	@OneToMany
 	private List<Pedido> pedidos = new ArrayList<>();
 	
 	public Cliente(String nome, String CPF) {
-		this.nome = nome;
-		this.CPF = CPF;
+		this.dadosPessoais = new DadosPessoais(nome, CPF);
 	}
 	
 	public Cliente() {
@@ -36,24 +37,19 @@ public class Cliente {
 		return id;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getCPF() {
-		return CPF;
-	}
-
-	public void setCPF(String cPF) {
-		CPF = cPF;
-	}
-
 	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
+
+	public DadosPessoais getDadosPessoais() {
+		return dadosPessoais;
+	}
 	
+	public String getNome() {
+		return this.dadosPessoais.getNome();
+	}
+	
+	public String getCPF() {
+		return this.dadosPessoais.getCPF();
+	}
 }
